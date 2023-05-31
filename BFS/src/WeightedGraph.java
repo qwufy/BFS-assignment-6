@@ -7,16 +7,30 @@ public class WeightedGraph<V> {
         adjacencyList = new HashMap<>();
     }
 
-    public void addVertex(Vertex vertex) {
+    public void addVertex(V vertex) {
         adjacencyList.put(vertex, new ArrayList<>());
     }
 
-    public void addEdge(Vertex source, Vertex destination, int weight) {
+    public void addEdge(V source, V destination, int weight) {
         validateVertex(source);
         validateVertex(destination);
 
-        Edge<Vertex> edge = new Edge<>(source, destination, weight);
+        E<V> edge = new E<>(source, destination, weight);
         adjacencyList.get(source).add(edge);
+    }
 
+    private void validateVertex(V vertex) {
+        if (!adjacencyList.containsKey(vertex)) {
+            throw new IllegalArgumentException("Vertex " + vertex + " is not in the graph");
+        }
+    }
+
+    public List<E<V>> getAdjacentEdges(V vertex) {
+        validateVertex(vertex);
+        return adjacencyList.get(vertex);
+    }
+
+    public Set<V> getVertices() {
+        return adjacencyList.keySet();
     }
 }

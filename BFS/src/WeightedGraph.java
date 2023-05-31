@@ -1,36 +1,37 @@
-import java.util.HashMap;
+import java.util.*;
 
-public class WeightedGraph<V> {
-    private map<V, List<E<V>>>, adjacencyList;
+public class WeightedGraph<Vertex> {
+    private Map<Vertex, List<Edge<Vertex>>> adjacencyList;
 
     public WeightedGraph() {
         adjacencyList = new HashMap<>();
     }
 
-    public void addVertex(V vertex) {
+    public void addVertex(Vertex vertex) {
         adjacencyList.put(vertex, new ArrayList<>());
     }
 
-    public void addEdge(V source, V destination, int weight) {
+    public void addEdge(Vertex source, Vertex destination, int weight) {
         validateVertex(source);
         validateVertex(destination);
 
-        E<V> edge = new E<>(source, destination, weight);
+        Edge<Vertex> edge = new Edge<>(source, destination, weight);
         adjacencyList.get(source).add(edge);
+
     }
 
-    private void validateVertex(V vertex) {
+    private void validateVertex(Vertex vertex) {
         if (!adjacencyList.containsKey(vertex)) {
-            throw new IllegalArgumentException("Vertex " + vertex + " is not in the graph");
+            throw new IllegalArgumentException("This " + vertex + " vertex is not in the graph");
         }
     }
 
-    public List<E<V>> getAdjacentEdges(V vertex) {
+    public List<Edge<Vertex>> getAdjacentEdges(Vertex vertex) {
         validateVertex(vertex);
         return adjacencyList.get(vertex);
     }
 
-    public Set<V> getVertices() {
+    public Set<Vertex> getVertices() {
         return adjacencyList.keySet();
     }
 }
